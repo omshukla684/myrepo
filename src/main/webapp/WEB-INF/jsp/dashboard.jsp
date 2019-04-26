@@ -28,7 +28,7 @@
 <style type="text/css">
 #container1 {
 	min-width: 310px;
-	max-width: 800px;
+	max-width: 1000px;
 	height: 400px;
 	margin: 0 auto
 }
@@ -230,7 +230,7 @@ function function3() {
 			</div></div>
 			</div>
 			<div class="row">
-				<div class=col-md-6>
+				<div class=col-md-12>
 			  <div class="chart-area">
 			  
 			<div id="container2"></div>
