@@ -19,11 +19,12 @@ $("#sign-up").validate({
 		},
 		email:{
 			required:true,
-			regex : /^\b[A-Za-z]+[A-Z0-9._-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+			regex :  "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
 			
 		},
 		password:{
-			regex : "(?!.* )(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])",
+			regex : "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
 			required:true,
 			minlength:8,
 			maxlength:16
@@ -35,8 +36,8 @@ $("#sign-up").validate({
 		
 		salary:{
 		     required : true,
-		     
-            
+		     regex : /^\d{1,6}(?:\.\d{0,2})?$/,
+			 number : true
 			
 		},
 		
@@ -76,8 +77,9 @@ $("#sign-up").validate({
 	  },
 	  salary:{
 		     required:"This field is required.",
+             regex: "Enter a valid salary(eg:20000.33)",
+             
             
-		  
 	  },
 	  address:{
 		  required:"This field is required",

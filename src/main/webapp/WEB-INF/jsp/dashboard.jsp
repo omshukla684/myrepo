@@ -19,9 +19,26 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
   <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/variable-pie.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<style type="text/css">
+#container1 {
+	min-width: 310px;
+	max-width: 800px;
+	height: 400px;
+	margin: 0 auto
+}
+#container2 {
+    min-width: 300px;
+    max-width: 800px;
+    height: 500px;
+    margin: 1em auto;
+}
+</style>
   <script >
 function function3() {
 		var agree = confirm("Are you sure u want to Log Out");
@@ -177,7 +194,7 @@ function function3() {
       </div>
       <!-- End Navbar -->
 			<div class="content">  <div class="row">
-			<div class=col-md-12>
+			<div class=col-md-6>
 			  <div class="chart-area">
 			  
 				<div id="container"
@@ -202,7 +219,25 @@ function function3() {
 
 					</tbody>
 
-				</table></div></div>
+				</table></div>
+				
+			<div class=col-md-6>
+			  <div class="chart-area">
+			  
+			<div id="container1"></div>
+			
+
+			</div></div>
+			</div>
+			<div class="row">
+				<div class=col-md-6>
+			  <div class="chart-area">
+			  
+			<div id="container2"></div>
+			
+
+			</div></div>
+			
 			</div>
 			<footer class="footer">
         <div class="container-fluid">
@@ -381,6 +416,94 @@ function function3() {
       demo.initDashboardPageCharts();
 
     });
+  </script>
+  <script type="text/javascript">
+  Highcharts.chart('container1', {
+
+	    title: {
+	        text: ' 2019-2019'
+	    },
+
+	    subtitle: {
+	        text: 'Source:Mobiloitte.com'
+	    },
+
+	    yAxis: {
+	        title: {
+	            text: 'Number of Users'
+	        }
+	    },
+	    legend: {
+	        layout: 'vertical',
+	        align: 'right',
+	        verticalAlign: 'middle'
+	    },
+
+	    plotOptions: {
+	        series: {
+	            label: {
+	                connectorAllowed: false
+	            },
+	            pointStart: 2019
+	        }
+	    },
+
+	    series: [{
+	        name: 'Admin',
+	        data: [0,${admincount}]
+	    }, {
+	        name: 'User',
+	        data: [${usercount}]
+	    }],
+
+	    responsive: {
+	        rules: [{
+	            condition: {
+	                maxWidth: 500
+	            },
+	            chartOptions: {
+	                legend: {
+	                    layout: 'horizontal',
+	                    align: 'center',
+	                    verticalAlign: 'bottom'
+	                }
+	            }
+	        }]
+	    }
+
+	});
+  
+  Highcharts.chart('container2', {
+	    chart: {
+	        type: 'variablepie'
+	    },
+	    title: {
+	        text: 'Total Users'
+	    },
+	    tooltip: {
+	        headerFormat: '',
+	        pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+	            'Area (square km): <b>{point.y}</b><br/>' +
+	            'Population density (people per square km): <b>{point.z}</b><br/>'
+	    },
+	    series: [{
+	        minPointSize: 10,
+	        innerSize: '20%',
+	        zMin: 0,
+	        name: 'countries',
+	        data: [{
+	            name: 'Admin',
+	            y: ${admincount},
+	            z: 92.9
+	        }, {
+	            name: 'User',
+// 	            y: ${usercount},
+  y: 5,
+	            z: 118.7
+	        }]
+	    }]
+	});
+
   </script>
 </body>
 

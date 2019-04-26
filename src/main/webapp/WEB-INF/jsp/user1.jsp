@@ -207,7 +207,7 @@ function readURL(input) {
                         <label for="exampleInputEmail1">Email address<span class="asteriskField">
 														* </span></label>
                         <input type="email" id="email"name="email" class="form-control" placeholder="mike@email.com" >
-                        <span  style="color:red;" id="result"></span>
+                        <div style="color:red;" id="result"></div>
                       </div>
                     </div>
                   </div>
@@ -436,7 +436,7 @@ function readURL(input) {
    		          $('#result').html("Email Allready Exist");
    		       $("#btnSubmit").attr("disabled", true);
    				}else{
-   				 $('#result').html("Email Available");
+   				 $('#result').html("");
    				 $("#btnSubmit").attr("disabled", false);
    				}
    			},
@@ -632,7 +632,8 @@ function readURL(input) {
 <!-- Include Date Range Picker -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
+	<script
+		src="http://52.221.54.107/PROJECTS/Elevate/public/js/validation.js"></script>
 <script>
 	$(document).ready(function(){
 		var dt = new Date();
