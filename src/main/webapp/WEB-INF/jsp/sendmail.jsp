@@ -1,43 +1,50 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,width=device-width,user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style"
-	content="black-translucent">
-<meta name="description" content="">
-<meta name="author" content="">
-<title>Mobiloitte</title>
-<link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="/resources/fonts/stylesheet.css" rel="stylesheet">
-<link href="/resources/css/slick.css" rel="stylesheet">
-<link href="/resources/css/slick-theme.css" rel="stylesheet">
-<link href="/resources/css/style.css" rel="stylesheet">
-<link href="/resources/css/mobile.css" rel="stylesheet">
-</head>
-<body class="logged">
-	<header class="landing_header header_fixed_menu">
-		<nav class="navbar navbar-expand-md  align-items-center">
-			<a class="navbar-brand logo" href="/"> <img class="logo_large"
-				src="/resources/images/logo.png" height="75px" width="75px" alt="Logo" /> <!--  <img class="logo_small" src="images/logo_small.png" alt="Logo"/> -->
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#collapsibleNavbar">
-				<span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-			</button>
-			<div class="collapse navbar-collapse" id="collapsibleNavbar">
-				<ul class="navbar-nav navbar-nav ml-auto main-menu">
-					<li class="nav-item"><a class="nav-link" href="login">Login</a></li>
-					<li class="nav-item"><a class="nav-link" href="signup">Signup</a></li>
-				</ul>
-			</div>
 
-		</nav>
-	</header>
-	<!-- Header End -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<meta charset="utf-8">
+
+
+<link rel="icon" type="image/png" href="assets/img/favicon.ico">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+
+<meta
+	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+	name='viewport' />
+<meta name="viewport" content="width=device-width" />
+<link rel="apple-touch-icon" sizes="76x76"
+	href="../assets/img/apple-icon.png">
+<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+<title>Om Shukla</title>
+<!--     Fonts and icons     -->
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800"
+	rel="stylesheet" />
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+	rel="stylesheet">
+<!-- Nucleo Icons -->
+<link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+<!-- CSS Files -->
+<link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link href="../assets/demo/demo.css" rel="stylesheet" />
+<link
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300'
+	rel='stylesheet' type='text/css'>
+<link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Employee-List</title>
+</head><body>
 	<main class="main-container bg_gray">
 	<section class="inner_section common_section">
 		<div class="container">
@@ -48,7 +55,7 @@
 
 					</div>
 					<div class="row justify-content-center">
-						<div class="col-12">
+						<div class="col-md-12">
 
 							<div class="form-box center-box max-WT-500">
 								<h5 style="color: green">${delete}</h5>
@@ -95,20 +102,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
-					<ul class="socialList">
-						<li><a href="https://web.telegram.org"><i class="fas fa-paper-plane"></i></a></li>
-						<li><a href="https://www.facebook.com"><i class="fab fa-facebook-f"></i></a></li>
-						<li><a href="https://twitter.com"><i class="fab fa-twitter"></i></a></li>
-						<li><a href="https://www.reddit.com" class="reddit"><i
-								class="fab fa-reddit-alien"></i></a></li>
-						<li><a href="https://github.com" class="Octocat"><i
-								class="fab fa-github-alt"></i></a></li>
-						<li><a href="https://plus.google.com/discover"><i class="fab fa-google-plus-g"></i></a></li>
-						<li><a href="https://www.instagram.com"><i class="fab fa-instagram"></i></a></li>
-						<li><a href="https://www.youtube.com"><i class="fab fa-youtube"></i></a></li>
-					</ul>
-				</div>
+			
 			</div>
 		</div>
 	</footer>

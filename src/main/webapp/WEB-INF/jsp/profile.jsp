@@ -81,7 +81,7 @@ function readURL(input) {
   </script>
 </head>
 
-<body class="">
+<body onload="getLocation()"class="">
   <div class="wrapper" data-color="blue">
     <div class="sidebar">
       <!--
@@ -121,7 +121,7 @@ function readURL(input) {
           </li>
          
           <li class="active ">
-            <a href="/editprofile">
+            <a href="/profile">
               <i class="tim-icons icon-puzzle-10"></i>
               <p>User Profile</p>
             </a>
@@ -264,7 +264,7 @@ function readURL(input) {
                     <div class="col-md-6 pr-md-1">
                       <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" name="firstName" class="form-control"  value="${EmployeeDetails.firstName}" placeholder="First Name" >
+                        <input type="text" name="firstName" class="form-control"  value="${EmployeeDetails.firstName}" placeholder="First Name" disabled>
                       </div>
                     </div>
                     <div class="col-md-6 pl-md-1">
@@ -292,7 +292,7 @@ function readURL(input) {
                     <div class="col-md-6 pr-md-1">
                       <div class="form-group">
                         <label>Address</label>
-                        <input type="text" name="address" class="form-control"  value="${EmployeeDetails.address}" placeholder="Address" >
+                        <input type="text" name="address" id="address" class="form-control"  value="${EmployeeDetails.address}" placeholder="Address" >
                       </div>
                     </div>
                       <div class="col-md-6 pr-md-1">
@@ -360,7 +360,7 @@ function readURL(input) {
                    
                    </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-fill btn-primary">Update</button>
+                        <a  href="/editprofile" class="btn btn-fill btn-primary">Edit Profile</a>
                         
                       </div>
                     
@@ -421,7 +421,10 @@ function readURL(input) {
                     <a href="javascript:void(0)">
                       <img class="avatar" src="/uploads/${EmployeeDetails.imgUrl}" alt="...">
                       <h5 class="title">${EmployeeDetails.role}</h5>
+                      
                     </a>
+                 
+				        <div id="googleMap" style="height:300px;"></div>
 <!--                     <p class="description"> -->
 <!--                       Ceo/Co-Founder -->
 <!--                     </p> -->
@@ -520,6 +523,50 @@ function readURL(input) {
   <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script>
   <!-- Black Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
+    
+<script type="text/javascript"
+	src="http://maps.google.com/maps/api/js?key=AIzaSyCm8rnRUZU0ecO8hpCF3KVANv9LmAXv0hc&libraries=places"></script>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+</head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+var map;
+function getLocation(){
+  var geocoder = new google.maps.Geocoder();
+  var address =document.getElementById("address").value;
+console.log(address)
+  geocoder.geocode({ address: address }, function(results, status) {
+    console.log(results[0].geometry.location.lat())
+    console.log(results[0].geometry.location.lng())
+  if (status == google.maps.GeocoderStatus.OK) {
+    var latitude = results[0].geometry.location.lat();
+    var longitude = results[0].geometry.location.lng();  
+    initializeMap(latitude, longitude);     
+  }
+});
+}
+function initializeMap(lat, lng){
+// console.log(lat,lng)
+var mapProp = {
+  center:new google.maps.LatLng(lat,lng),
+  zoom: 15,
+};
+map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+addMarker(lat,lng)
+}
+
+function addMarker(lat1,lng1){
+var myLatLng = {lat:lat1, lng:lng1};
+var marker = new google.maps.Marker({
+'position': myLatLng,
+'map': map,
+});
+marker.setMap(map);
+}
+</script>
   <script>
     $(document).ready(function() {
       $().ready(function() {

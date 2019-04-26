@@ -32,12 +32,19 @@ public class UserController {
 	@Autowired
 	UserService service;
 
+	/**
+	 * @return Login page  
+	 */
 	@GetMapping(value = "/login")
 	public String login() {
 		return "login";
 	}
 	
 	
+	/**
+	 * @param session
+	 * @return Mapview
+	 */
 	@GetMapping(value = "/map")
 	public String map(HttpSession session) {
 		try {
@@ -55,6 +62,12 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * @param user
+	 * @param model
+	 * @param session
+	 * @return HomePage
+	 */
 	@GetMapping(value = "/")
 	public String index(UserModel user, Model model, HttpSession session) {
 		try {
@@ -71,17 +84,21 @@ public class UserController {
 
 	}
 
+	/**
+	 * @return Signup Page
+	 */
 	@GetMapping(value = "/user")
 	public String user() {
 		return "user1";
 	}
 
-//	
-//	@GetMapping("gridview")
-//	public String grid(UserModel user, Model mod) {
-//			mod.addAttribute("EmployeeDetails",service.getAllEmployee());
-//			return "gridview";
-	// }
+
+	/**
+	 * @param user
+	 * @param model
+	 * @param session
+	 * @return Table of All Employee
+	 */
 	@GetMapping("/allemp")
 	public String emplist(UserModel user, Model model, HttpSession session) {
 		try {
@@ -97,6 +114,12 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * @param user
+	 * @param model
+	 * @param session
+	 * @return return List View of All Employee
+	 */
 	@GetMapping("allemplist")
 	public String list(UserModel user, Model model, HttpSession session) {
 		if (session.getAttribute("email") == null && session.getAttribute("email").equals("")) {
@@ -108,6 +131,11 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * @param user
+	 * @param session
+	 * @return Edit Profile Page for Logedin User
+	 */
 	@GetMapping(value = "/editprofile")
 	String edit(UserModel user, HttpSession session) {
 		try {
@@ -124,18 +152,51 @@ public class UserController {
 			return "redirect:/login";
 		}
 	}
+	/**
+	 * @param user
+	 * @param session
+	 * @return Profile Page of Registered user
+	 */
+	@GetMapping(value = "/profile")
+	String profile(UserModel user, HttpSession session) {
+		try {
+			if (session.getAttribute("email") == null && session.getAttribute("email").equals("")) {
+				return "redirect:/login";
+			} else {
 
+				session.setAttribute("EmployeeDetails",
+						service.getEmployeeByEmail(((String) session.getAttribute("email"))));
+
+				return "profile";
+			}
+		} catch (Exception e) {
+			return "redirect:/login";
+		}
+	}
+
+
+	/**
+	 * @param session
+	 * @return session will be Expired and redirect to the login page
+	 */
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/login";
 	}
 
+	/**
+	 * @return Forgot password page for Getting Password on Email
+	 */
 	@GetMapping("/sendmail")
 	public String forget() {
 		return "sendmail";
 	}
 
+	/**
+	 * @param email
+	 * @return Check email is existed in database or not
+	 */
 	@GetMapping(value = "/checkemail")
 	@ResponseBody
 	public String checkemail(@RequestParam String email) {
@@ -150,11 +211,17 @@ public class UserController {
 		}
 	}
 
-	@GetMapping(value = "/signup")
-	String signup() {
-		return "signup";
-	}
+//	@GetMapping(value = "/signup")
+//	String signup() {
+//		return "signup";
+//	}
 
+	/**
+	 * @param user
+	 * @param rd
+	 * @return  Data from signup page to save into Database
+	 * @throws IOException
+	 */
 	@PostMapping("savedata")
 	public String saveUserData(UserModel user, RedirectAttributes rd) throws IOException {
 
@@ -174,6 +241,13 @@ public class UserController {
 
 	}
 
+	/**
+	 * @param user
+	 * @param m
+	 * @param r
+	 * @param session
+	 * @return It checks the user is authenticated or not if not return to login 
+	 */
 	@PostMapping("/login")
 	public String validateData(UserModel user, Model m, RedirectAttributes r, HttpSession session) {
 		String check = service.trytoLogin(user);
@@ -216,6 +290,14 @@ public class UserController {
 //
 //	}
 
+	/**
+	 * @param id
+	 * @param m
+	 * @param user
+	 * @param rd
+	 * @param session
+	 * @return Delete data from Grid View Page
+	 */
 	@GetMapping("gridview/delete")
 	public String deleteGridPage(@RequestParam Long id, Model m, UserModel user, RedirectAttributes rd,
 			HttpSession session) {
@@ -224,6 +306,12 @@ public class UserController {
 
 	}
 
+	/**
+	 * @param user
+	 * @param session
+	 * @param email
+	 * @return Edit Data of Selected Employee from Grid view page
+	 */
 	@GetMapping(value = "grid/editprofile")
 	String gridedit(UserModel user, HttpSession session, @RequestParam String email) {
 		try {
@@ -240,6 +328,13 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * @param id
+	 * @param m
+	 * @param user
+	 * @param rd
+	 * @return For Delete Employee from Table view
+	 */
 	@GetMapping("allemp/delete")
 	public String deleteemp(@RequestParam Long id, Model m, UserModel user, RedirectAttributes rd) {
 		System.out.println(id);
@@ -248,20 +343,28 @@ public class UserController {
 
 	}
 
-//	
-//	@GetMapping("/user")
-//	public String editPage(Model mod,UserModel user,String id) {
-//		mod.addAttribute("EmployeeDetails",service.getUserById(id));
-//		
-//		return "user1";
-//	}
+
+	/**
+	 * @param user
+	 * @param email
+	 * @param mod
+	 * @return Data from the editprofile page to the database
+	 * @throws IOException
+	 */
 	@PostMapping("/editprofile")
 	public String showMyprofile(UserModel user, String email, Model mod) throws IOException {
 
 		service.updateData(user);
-		return "redirect:/editprofile";
+		return "redirect:/profile";
 	}
 
+	/**
+	 * @param user
+	 * @param model
+	 * @param session
+	 * @param page_id
+	 * @return Grid view page with paginated data with 4 data on one page
+	 */
 	@GetMapping("/gridview/{page_id}")
 	public String grid(UserModel user, Model model, HttpSession session, @PathVariable int page_id) {
 		try {
@@ -291,6 +394,11 @@ public class UserController {
 
 	}
 
+	/**
+	 * @param model
+	 * @param session
+	 * @return chart view page
+	 */
 	@GetMapping("/chart-view")
 	public String chart(Model model, HttpSession session) {
 		try {

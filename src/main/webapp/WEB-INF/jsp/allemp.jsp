@@ -115,7 +115,7 @@ function function2() {
           </li>
          
           <li>
-            <a href="/editprofile">
+            <a href="/profile">
               <i class="tim-icons icon-puzzle-10"></i>
               <p>User Profile</p>
             </a>

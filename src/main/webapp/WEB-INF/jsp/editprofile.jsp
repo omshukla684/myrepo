@@ -361,7 +361,7 @@ function readURL(input) {
                    </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-fill btn-primary">Update</button>
-                        
+                         <a href="/profile" class="btn btn-fill btn-primary">Cancel</a>
                       </div>
                     
                     
