@@ -64,7 +64,14 @@ function function3() {
 			return true;
 		else
 			return false;
-	}</script>
+	}
+function function2() {
+	var agree = confirm("Are you sure you want to delete");
+	if (agree)
+		return true;
+	else
+		return false;
+}</script>
 </head>
 <body>
  <div class="sidebar">
@@ -262,7 +269,7 @@ function function3() {
 							<%-- <td><a type="button" class="btn btn-success"
 								href="/update/{id}=${EmployeeDetails.id}"> Edit</a></td> --%>
 
-							<td class="text-center"><a type="button" class="btn btn-primary"
+							<td class="text-center"><a   onclick="{return function2();}"class="btn btn-primary"
 								href="allemp/delete?id=${EmployeeDetails.empId}" name="delete">
 									Delete</a></td>
 						</tr>

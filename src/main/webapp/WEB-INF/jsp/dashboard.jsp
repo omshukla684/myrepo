@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-    Black Dashboard by Creative Tim
+    Mobiloitte
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -18,6 +18,7 @@
   <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
@@ -33,9 +34,9 @@
 	margin: 0 auto
 }
 #container2 {
-    min-width: 300px;
-    max-width: 800px;
-    height: 500px;
+/*     min-width: 300px; */
+/*     max-width: 800px; */
+/*     height: 500px; */
     margin: 1em auto;
 }
 </style>
@@ -498,7 +499,7 @@ function function3() {
 	        }, {
 	            name: 'User',
 // 	            y: ${usercount},
-  y: 5,
+                y: 6,
 	            z: 118.7
 	        }]
 	    }]

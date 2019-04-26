@@ -19,7 +19,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
  
-<body class="">
+<body onload="getLocation()" class="">
   <div class="wrapper">
     <div class="sidebar">
       <!--
@@ -169,15 +169,15 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card card-plain">
-              <div class="card-header">
-                Google Maps
-              </div>
+<!--               <div class="card-header"> -->
+<!--                 Google Maps -->
+<!--               </div> -->
               <div class="card-body">
               
 				<center>
-					<label> Address:</label> <input type="text" id="address" value="${EmployeeDetails.address}"
-						style="width: 500px;"></input>
-						<button class="btn btn-secondary" onclick="getLocation();">Get Location</button>
+				 <input   type="hidden" id="address" value="${EmployeeDetails.address}"
+						style="width: 500px;" ></input>
+<!-- 						<button class="btn btn-secondary" onload="getLocation();">Get Location</button> -->
 				</center>
 
 
@@ -244,6 +244,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
+
 var map;
 function getLocation(){
   var geocoder = new google.maps.Geocoder();
@@ -280,6 +281,13 @@ marker.setMap(map);
 </script>
   <script>
     $(document).ready(function() {
+    	
+    	
+    	
+    	
+    	
+    	
+    	
       $().ready(function() {
         $sidebar = $('.sidebar');
         $navbar = $('.navbar');

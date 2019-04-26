@@ -307,7 +307,7 @@
 					<img src="/uploads/${EmployeeDetails.imgUrl}" height="100px" width="80px">
 				</div>
 
-				<div class="col-md-3" style="padding-left:0%;">
+				<div class="col-md-2" style="padding-left:0%;">
 
 					<ul>
 					<li>First Name:${EmployeeDetails.firstName}</li>

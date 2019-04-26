@@ -38,9 +38,21 @@ public class UserController {
 	}
 	
 	
-	@GetMapping(value = "/newpage")
-	public String login545564() {
-		return "NewFile";
+	@GetMapping(value = "/map")
+	public String map(HttpSession session) {
+		try {
+			if (session.getAttribute("email") == null && session.getAttribute("email").equals("")) {
+				return "redirect:/login";
+			} else {
+
+				session.setAttribute("EmployeeDetails",
+						service.getEmployeeByEmail(((String) session.getAttribute("email"))));
+
+				return "map";
+			}
+		} catch (Exception e) {
+			return "redirect:/login";
+		}
 	}
 
 	@GetMapping(value = "/")
@@ -232,7 +244,7 @@ public class UserController {
 	public String deleteemp(@RequestParam Long id, Model m, UserModel user, RedirectAttributes rd) {
 		System.out.println(id);
 		service.deleteUser(id);
-		return "redirect:/allemplist";
+		return "redirect:/allemp";
 
 	}
 
