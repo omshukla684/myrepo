@@ -127,7 +127,30 @@ public class UserDaoImpl implements UserDao {
 			return jdbcTemplate.queryForObject(str, String.class, user.getEmail());
 		}
 
+		@Override
+		public int saveTokenKey(int tokenkey, Long id) {
+	String sql="update table1 SET tokenkey=? where empId=?";
+			
+			return jdbcTemplate.update(sql,tokenkey,id);		
+		}
 		
+		@Override
+		public Long getUserId(String email) {
+			String sql="select empId from table1   where email=?";
+			return jdbcTemplate.queryForObject(sql,Long.class,email);
+		}
 		
-		
+		@Override
+		public int activateUserStatus(Long id, String key) {
+			String sql="update table1 SET status='1' where empId=? AND tokenkey=?";
+			return jdbcTemplate.update(sql,id,key);
+			
+		}
+		@Override
+		public int deleteTokenKey(Long id, String key) {
+
+			String sql="update table1 SET tokenkey=NULL where empId=? AND tokenkey=?";
+			return jdbcTemplate.update(sql,id,key);
+			
+		}
 }

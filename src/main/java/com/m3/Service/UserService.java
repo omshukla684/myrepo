@@ -38,6 +38,8 @@ public interface UserService {
 
 	String isUserValid(UserModel user);
 
+	void activateUserAccount(Long id, String key);
+
 	
 
 	

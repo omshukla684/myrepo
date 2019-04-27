@@ -43,5 +43,13 @@ public interface UserDao {
 
 	int saveUserDataWithoutImg(UserModel user);
 
+	int saveTokenKey(int tokenkey, Long id);
+
+	Long getUserId(String email);
+
+	int activateUserStatus(Long id, String key);
+
+	int deleteTokenKey(Long id, String key);
+
 
 }

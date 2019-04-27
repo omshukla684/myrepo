@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -52,11 +53,36 @@ public class UserServiceImpl implements UserService{
 		Map<String, Object> response = new HashMap<>();
 		if(user.getMultipartimage().isEmpty()) {
 			int result=dao.saveUserDataWithoutImg(user);
+			
 			if (result > 0) {
 				response.put("200", "Success");
 			} else {
 				response.put("204", "Failed");
 			}
+			Long id = dao.getUserId(user.getEmail());
+			Random rand = new Random();
+
+			// Generate random integers in range 0 to 999
+			int tokenkey = rand.nextInt(1000);
+			dao.saveTokenKey(tokenkey, id);
+
+			MimeMessage message = sender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message);
+
+			try {
+				helper.setTo(user.getEmail());
+//		            helper.setText("your password is "+password);
+				helper.setText(" click on link to activate account");
+				helper.setText("http://localhost:8080/activeaccount?id=" + id + "&key=" + tokenkey);
+				helper.setSubject("Mail From Mobiloitte");
+				System.err.println("hello");
+				sender.send(message);
+			} catch (MessagingException e) {
+				e.printStackTrace();
+				
+			}
+
+			
 			return response;
 		}
 		String fileName = StringUtils.cleanPath(user.getMultipartimage().getOriginalFilename());
@@ -64,6 +90,29 @@ public class UserServiceImpl implements UserService{
 		Files.copy(user.getMultipartimage().getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 		user.setImgUrl(fileName);
 		int result= dao.saveUserData(user);
+		Long id = dao.getUserId(user.getEmail());
+		Random rand = new Random();
+
+		// Generate random integers in range 0 to 999
+		int tokenkey = rand.nextInt(1000);
+		dao.saveTokenKey(tokenkey, id);
+
+		MimeMessage message = sender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+
+		try {
+			helper.setTo(user.getEmail());
+//	            helper.setText("your password is "+password);
+			helper.setText(" click on link to activate account");
+			helper.setText("http://localhost:8080/activateaccount?id=" + id + "&key=" + tokenkey);
+			helper.setSubject("Mail From Mobiloitte");
+			System.err.println("hello");
+			sender.send(message);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			
+		}
+
 		
 		
 		if (result > 0) {
@@ -78,7 +127,11 @@ public class UserServiceImpl implements UserService{
 	public List<Map<String, Object>> getAllEmployee() {
 		 return dao.getAllEmployee();
 	}
-	
+	@Override
+	public void activateUserAccount(Long id, String key) {
+		dao.activateUserStatus(id, key);
+		dao.deleteTokenKey(id, key);		
+	}
 
 	@Override
 	public String trytoLogin(UserModel user) 
@@ -86,14 +139,23 @@ public class UserServiceImpl implements UserService{
 	try {
 		Map<String, Object> userdetail = dao.validateData(user);
 		String password = (String) userdetail.get("password");
+		int status = (int) userdetail.get("status");
 		System.out.println("================="+password);
 
 		if (password.equals(user.getPassword())) {
+
+			if (status != 1) {
+				return "203";
+			}
 			return "200";
-		} else {
+		}
+		else
+		{
 			return "201";
 		}
-	} catch (Exception e) {
+	} 
+	catch (Exception e) 
+	{
 		e.printStackTrace();
 	}
 	return "202";

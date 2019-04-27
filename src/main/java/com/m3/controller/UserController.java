@@ -256,39 +256,44 @@ public class UserController {
 			session.setAttribute("sessionstatus", "true");
 			session.setAttribute("email", user.getEmail());
 			return "redirect:/";
-		} else if (check.equals("201")) {
-			m.addAttribute("errorforlogin", "invalid password");
-			return "login";
-		} else {
-			m.addAttribute("errorforlogin", "email not exist");
+		} if (check.equals("200")) {
+			m.addAttribute("errorforlogin", "Trainee Not Authorized to login");
 			return "login";
 		}
+
+		else if (check.equals("201")) {
+			m.addAttribute("errorforlogin", "Password Not Match");
+			return "login";
+		}
+
+		else if (check.equals("203")) {
+			m.addAttribute("errorforlogin", "Account not actives yet please verify your email");
+			return "login";
+
+		}
+
+		else {
+			m.addAttribute("errorforlogin", "email not exist ");
+			return "login";
+		}
+
 	}
-//	@PostMapping("login-validate")
-//	public String loginValidation(UserModel user, Model model) {
-//		
-//		System.out.println(user);
-//		int response = service.loginValidate(user);
-//		// E-mail-Validation
-//		if (response == 404) {
-//			model.addAttribute("errorMessage", "Email not found.");
-//			return "Login";
-//		}
-//		// Password-Validation
-//
-//		else if (response == 201) {
-//			model.addAttribute("errorMessage", "Invalid Password");
-//			return "Login";
-//		}
-//		// E-mail & Password Validationhttp://localhost:8080/gridview
-//
-//		else
-//			model.addAttribute("userEmail", user.getEmail());
-//		model.addAttribute("EmployeeDetails", service.getEmployeeByEmail(user.getEmail()));
-//
-//		return "gridview";
-//
-//	}
+	/**
+	 * @param id
+	 * @param key
+	 * @param r
+	 * @return activate user to use
+	 */
+	@GetMapping("activateaccount")
+	public String activeUserAccount(@RequestParam Long id, @RequestParam String key, RedirectAttributes r) {
+		System.err.println(id+""+key);
+		service.activateUserAccount(id, key);
+		r.addFlashAttribute("errorforlogin", "account is activated click to login");
+
+		return "redirect:/login";
+
+	}
+
 
 	/**
 	 * @param id
@@ -414,8 +419,44 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * @param user
+	 * @param session
+	 * @param rd
+	 * @param model
+	 * @return
+	 */
+	/**
+	 * @param user
+	 * @param session
+	 * @param rd
+	 * @param model
+	 * @return To send Mail Password on Email
+	 */
+	@PostMapping("/sendmail")
+	public String sendMail(UserModel user, HttpSession session, RedirectAttributes rd, Model model) {
+		if (service.isUserValid(user).equals("Error")) {
 
+			rd.addFlashAttribute("notfound", "Enter the valid email");
+			return "redirect:/sendmail";
+		} else {
+			session.setAttribute("session", user.getEmail());
 
-	
+			rd.addFlashAttribute("send", " Please Check Your Mail!");
+			return "redirect:/login";
+		}
+	}
+
+	/**
+	 * @param user
+	 * @param id
+	 * @param rd
+	 * @return Forgot Password Page
+	 */
+	@GetMapping("/forgotpassword")
+	public String forgotPassword(UserModel user,@RequestParam Long id, RedirectAttributes rd) {
+		
+		return "forgotPassword";
+	}
 
 }
