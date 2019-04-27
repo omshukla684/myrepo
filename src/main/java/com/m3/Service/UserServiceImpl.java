@@ -23,6 +23,10 @@ import org.springframework.util.StringUtils;
 import com.m3.model.UserModel;
 import com.m3.dao.UserDao;
 
+/**
+ * @author Om narayan shukla
+ *
+ */
 @Service
 public class UserServiceImpl implements UserService{
 	@Autowired
@@ -33,22 +37,14 @@ public class UserServiceImpl implements UserService{
 	@Value("${file.upload-path}")
 	private String folderPath;
 	
-	public Map<String, Object> addUser(UserModel user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-//	public int signUp(UserModel user) throws IOException {
-//		
-//		String fileName = StringUtils.cleanPath(user.getMultipartimage().getOriginalFilename());
-//		Path path = Paths.get(folderPath + fileName);
-//		long copy = Files.copy(user.getMultipartimage().getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-//		user.setImgUrl(fileName);
-//		return dao.saveUserData(user);
-//		
-//	}
 	
+
+	
+	
+	/* (non-Javadoc)
+	 * @see com.m3.Service.UserService#signUp(com.m3.model.UserModel)
+	 * Service for Signup and It send Activation link on Email
+	 */
 	public Map<String, Object> signUp(UserModel user) throws IOException {
 		Map<String, Object> response = new HashMap<>();
 		if(user.getMultipartimage().isEmpty()) {
@@ -123,16 +119,28 @@ public class UserServiceImpl implements UserService{
 		return response;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.m3.Service.UserService#getAllEmployee()
+	 * Get All Employee Details From Database
+	 */
 	@Override
 	public List<Map<String, Object>> getAllEmployee() {
 		 return dao.getAllEmployee();
 	}
+	/* (non-Javadoc)
+	 * Activate User From unique Token key
+	 * @see com.m3.Service.UserService#activateUserAccount(java.lang.Long, java.lang.String)
+	 */
 	@Override
 	public void activateUserAccount(Long id, String key) {
 		dao.activateUserStatus(id, key);
 		dao.deleteTokenKey(id, key);		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.m3.Service.UserService#trytoLogin(com.m3.model.UserModel)
+	 * User Login Method For Varifying User Details
+	 */
 	@Override
 	public String trytoLogin(UserModel user) 
 	{
@@ -161,27 +169,11 @@ public class UserServiceImpl implements UserService{
 	return "202";
 }
 
-	@Override
-	public int loginValidate(UserModel user) {
-		int result=dao.checkEmailAlreadyExist(user.getEmail());
-		if(result>0) {
-			//Password validate
-			String password= dao.getPasswordByEmail(user.getEmail());
-			
-			if(password.equals(user.getPassword())) {
-				//success
-				return 200;
-			}else
-				//password not match
-				return 201;
-		}
-		else {
-			// email not exist
-			return 404;
-		}
 
-	}
-
+	/* (non-Javadoc)
+	 * @see com.m3.Service.UserService#getEmployeeByEmail(java.lang.String)
+	 * Get Employee Details By Email
+	 */
 	@Override
 	public Object getEmployeeByEmail(String email) {
 
@@ -190,24 +182,44 @@ public class UserServiceImpl implements UserService{
 		return dao.getEmployeeByEmail(email);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.m3.Service.UserService#deleteUser(java.lang.Long)
+	 * Delete User From Database By Particular Id 
+	 */
 	@Override
 	public int deleteUser(Long id) {
 		return dao.deleteUser(id);
 	}
-     @Override
+     /* (non-Javadoc)
+     * @see com.m3.Service.UserService#getEmployeesByPage(int, int)
+     * Get All Employee By Page 
+     */
+    @Override
 	public List<Map<String, Object>> getEmployeesByPage(int pageid, int total) {
         return dao.getEmployeesByPage(pageid, total);
     }
 
+	/* (non-Javadoc)
+	 * @see com.m3.Service.UserService#getCount(com.m3.model.UserModel)
+	 * Get Count Of User From Database
+	 */
 	@Override
 	public int getCount(UserModel user) {
 		return dao.getCount(user);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.m3.Service.UserService#getUserById(java.lang.String)
+	 * Get User Details By ID
+	 */
 	@Override
 	public Map<String, Object> getUserById(String id) {
 		return dao.getUserById(id);	}
 
+	/* (non-Javadoc)
+	 * @see com.m3.Service.UserService#updateData(com.m3.model.UserModel)
+	 * Update User Data 
+	 */
 	@Override
 
 	public int updateData(UserModel user) throws IOException {
@@ -226,28 +238,50 @@ public class UserServiceImpl implements UserService{
 		 			return dao.updateData(user);
 		 	
 	}	}
+	/* (non-Javadoc)
+	 * @see com.m3.Service.UserService#getEmailCount(com.m3.model.UserModel)
+	 * Get Email count from database
+	 */
 	@Override
 	public String getEmailCount(UserModel user) {
 		return dao.getEmailCount(user);
 		
 	}
 	
+    /* (non-Javadoc)
+     * @see com.m3.Service.UserService#checkemail(java.lang.String)
+     * get Email Exist or not in the database
+     */
     @Override
     public String checkemail(String email) {
     	return dao.checkemail(email);
     }
 
+	/* (non-Javadoc)
+	 * @see com.m3.Service.UserService#getAdmin()
+	 * Get Count of admin 
+	 * 
+	 */
 	@Override
 	public int getAdmin() {
 		return dao.getAdmin();
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.m3.Service.UserService#getUser()
+	 * 
+	 * Get User Counts from Database
+	 */
 	@Override
 	public int getUser() {
 		return dao.getuser();
 
 	}
+	/* (non-Javadoc)
+	 * @see com.m3.Service.UserService#isUserValid(com.m3.model.UserModel)
+	 * Check User Is Valid Or not for Password Reset
+	 */
 	@Override
 	public String isUserValid(UserModel user) {
 		MimeMessage message = sender.createMimeMessage();

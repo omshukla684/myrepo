@@ -23,17 +23,25 @@ import com.m3.Service.UserService;
 import com.m3.model.UserModel;
 import com.sun.mail.iap.Response;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UserController.
+ */
 @Controller
 public class UserController {
 
+	/** The sender. */
 	@Autowired
 	JavaMailSender sender;
 
+	/** The service. */
 	@Autowired
 	UserService service;
 
 	/**
-	 * @return Login page  
+	 * Login.
+	 *
+	 * @return Login page
 	 */
 	@GetMapping(value = "/login")
 	public String login() {
@@ -42,7 +50,9 @@ public class UserController {
 	
 	
 	/**
-	 * @param session
+	 * Map.
+	 *
+	 * @param session the session
 	 * @return Mapview
 	 */
 	@GetMapping(value = "/map")
@@ -63,9 +73,11 @@ public class UserController {
 	}
 
 	/**
-	 * @param user
-	 * @param model
-	 * @param session
+	 * Index.
+	 *
+	 * @param user the user
+	 * @param model the model
+	 * @param session the session
 	 * @return HomePage
 	 */
 	@GetMapping(value = "/")
@@ -85,6 +97,8 @@ public class UserController {
 	}
 
 	/**
+	 * User.
+	 *
 	 * @return Signup Page
 	 */
 	@GetMapping(value = "/user")
@@ -94,9 +108,11 @@ public class UserController {
 
 
 	/**
-	 * @param user
-	 * @param model
-	 * @param session
+	 * Emplist.
+	 *
+	 * @param user the user
+	 * @param model the model
+	 * @param session the session
 	 * @return Table of All Employee
 	 */
 	@GetMapping("/allemp")
@@ -115,9 +131,11 @@ public class UserController {
 	}
 
 	/**
-	 * @param user
-	 * @param model
-	 * @param session
+	 * List.
+	 *
+	 * @param user the user
+	 * @param model the model
+	 * @param session the session
 	 * @return return List View of All Employee
 	 */
 	@GetMapping("allemplist")
@@ -132,8 +150,10 @@ public class UserController {
 	}
 
 	/**
-	 * @param user
-	 * @param session
+	 * Edits the.
+	 *
+	 * @param user the user
+	 * @param session the session
 	 * @return Edit Profile Page for Logedin User
 	 */
 	@GetMapping(value = "/editprofile")
@@ -152,9 +172,12 @@ public class UserController {
 			return "redirect:/login";
 		}
 	}
+	
 	/**
-	 * @param user
-	 * @param session
+	 * Profile.
+	 *
+	 * @param user the user
+	 * @param session the session
 	 * @return Profile Page of Registered user
 	 */
 	@GetMapping(value = "/profile")
@@ -176,7 +199,9 @@ public class UserController {
 
 
 	/**
-	 * @param session
+	 * Logout.
+	 *
+	 * @param session the session
 	 * @return session will be Expired and redirect to the login page
 	 */
 	@GetMapping("/logout")
@@ -186,6 +211,8 @@ public class UserController {
 	}
 
 	/**
+	 * Forget.
+	 *
 	 * @return Forgot password page for Getting Password on Email
 	 */
 	@GetMapping("/sendmail")
@@ -194,7 +221,9 @@ public class UserController {
 	}
 
 	/**
-	 * @param email
+	 * Checkemail.
+	 *
+	 * @param email the email
 	 * @return Check email is existed in database or not
 	 */
 	@GetMapping(value = "/checkemail")
@@ -217,11 +246,13 @@ public class UserController {
 //	}
 
 	/**
-	 * @param user
-	 * @param rd
-	 * @return  Data from signup page to save into Database
-	 * @throws IOException
-	 */
+ * Save user data.
+ *
+ * @param user the user
+ * @param rd the rd
+ * @return  Data from signup page to save into Database
+ * @throws IOException Signals that an I/O exception has occurred.
+ */
 	@PostMapping("savedata")
 	public String saveUserData(UserModel user, RedirectAttributes rd) throws IOException {
 
@@ -242,11 +273,13 @@ public class UserController {
 	}
 
 	/**
-	 * @param user
-	 * @param m
-	 * @param r
-	 * @param session
-	 * @return It checks the user is authenticated or not if not return to login 
+	 * Validate data.
+	 *
+	 * @param user the user
+	 * @param m the m
+	 * @param r the r
+	 * @param session the session
+	 * @return It checks the user is authenticated or not if not return to login
 	 */
 	@PostMapping("/login")
 	public String validateData(UserModel user, Model m, RedirectAttributes r, HttpSession session) {
@@ -278,10 +311,13 @@ public class UserController {
 		}
 
 	}
+	
 	/**
-	 * @param id
-	 * @param key
-	 * @param r
+	 * Active user account.
+	 *
+	 * @param id the id
+	 * @param key the key
+	 * @param r the r
 	 * @return activate user to use
 	 */
 	@GetMapping("activateaccount")
@@ -296,11 +332,13 @@ public class UserController {
 
 
 	/**
-	 * @param id
-	 * @param m
-	 * @param user
-	 * @param rd
-	 * @param session
+	 * Delete grid page.
+	 *
+	 * @param id the id
+	 * @param m the m
+	 * @param user the user
+	 * @param rd the rd
+	 * @param session the session
 	 * @return Delete data from Grid View Page
 	 */
 	@GetMapping("gridview/delete")
@@ -312,9 +350,11 @@ public class UserController {
 	}
 
 	/**
-	 * @param user
-	 * @param session
-	 * @param email
+	 * Gridedit.
+	 *
+	 * @param user the user
+	 * @param session the session
+	 * @param email the email
 	 * @return Edit Data of Selected Employee from Grid view page
 	 */
 	@GetMapping(value = "grid/editprofile")
@@ -334,10 +374,12 @@ public class UserController {
 	}
 
 	/**
-	 * @param id
-	 * @param m
-	 * @param user
-	 * @param rd
+	 * Deleteemp.
+	 *
+	 * @param id the id
+	 * @param m the m
+	 * @param user the user
+	 * @param rd the rd
 	 * @return For Delete Employee from Table view
 	 */
 	@GetMapping("allemp/delete")
@@ -350,11 +392,13 @@ public class UserController {
 
 
 	/**
-	 * @param user
-	 * @param email
-	 * @param mod
+	 * Show myprofile.
+	 *
+	 * @param user the user
+	 * @param email the email
+	 * @param mod the mod
 	 * @return Data from the editprofile page to the database
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@PostMapping("/editprofile")
 	public String showMyprofile(UserModel user, String email, Model mod) throws IOException {
@@ -364,10 +408,12 @@ public class UserController {
 	}
 
 	/**
-	 * @param user
-	 * @param model
-	 * @param session
-	 * @param page_id
+	 * Grid.
+	 *
+	 * @param user the user
+	 * @param model the model
+	 * @param session the session
+	 * @param page_id the page id
 	 * @return Grid view page with paginated data with 4 data on one page
 	 */
 	@GetMapping("/gridview/{page_id}")
@@ -400,8 +446,10 @@ public class UserController {
 	}
 
 	/**
-	 * @param model
-	 * @param session
+	 * Chart.
+	 *
+	 * @param model the model
+	 * @param session the session
 	 * @return chart view page
 	 */
 	@GetMapping("/chart-view")
@@ -420,11 +468,13 @@ public class UserController {
 	}
 
 	/**
-	 * @param user
-	 * @param session
-	 * @param rd
-	 * @param model
-	 * @return
+	 * Send mail.
+	 *
+	 * @param user the user
+	 * @param session the session
+	 * @param rd the rd
+	 * @param model the model
+	 * @return the string
 	 */
 	/**
 	 * @param user
@@ -448,9 +498,11 @@ public class UserController {
 	}
 
 	/**
-	 * @param user
-	 * @param id
-	 * @param rd
+	 * Forgot password.
+	 *
+	 * @param user the user
+	 * @param id the id
+	 * @param rd the rd
 	 * @return Forgot Password Page
 	 */
 	@GetMapping("/forgotpassword")

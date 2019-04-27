@@ -12,7 +12,7 @@ public interface UserService {
 
 	List<Map<String, Object>> getAllEmployee();
 
-	int loginValidate(UserModel user);
+	
 
 	Object getEmployeeByEmail(String email);
 
